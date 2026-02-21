@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
@@ -38,11 +39,40 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isLastPage = currentIndex == pages.length - 1;
+
     return Scaffold(
       backgroundColor: AppColors.lightBackground,
       body: SafeArea(
         child: Column(
           children: [
+            /// 🔹 Skip Button (Top Right)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  if (!isLastPage)
+                    TextButton(
+                      onPressed: () {
+                        _controller.animateToPage(
+                          pages.length - 1,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: Text(
+                        "Skip",
+                        style: AppTextStyles.body.copyWith(
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+
+            /// 🔹 Pages
             Expanded(
               child: PageView.builder(
                 controller: _controller,
@@ -58,6 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
 
+            /// 🔹 Indicator
             SmoothPageIndicator(
               controller: _controller,
               count: pages.length,
@@ -70,23 +101,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             SizedBox(height: 30.h),
 
+            /// 🔹 Next / Get Started Button
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (currentIndex == pages.length - 1) {
-                  } else {
-                    _controller.nextPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 14.h),
-                  child: Text(
-                    currentIndex == pages.length - 1 ? "Get Started" : "Next",
-                    style: AppTextStyles.button,
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (isLastPage) {
+                    } else {
+                      _controller.nextPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    child: Text(
+                      isLastPage ? "Get Started" : "Next",
+                      style: AppTextStyles.button,
+                    ),
                   ),
                 ),
               ),
