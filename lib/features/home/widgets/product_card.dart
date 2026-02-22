@@ -27,11 +27,11 @@ class _ProductCardState extends State<ProductCard> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(18.r),
         boxShadow: [
           BoxShadow(
             // ignore: deprecated_member_use
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withOpacity(0.04),
             blurRadius: 15,
             offset: const Offset(0, 6),
           ),
@@ -43,46 +43,50 @@ class _ProductCardState extends State<ProductCard> {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(18.r)),
                 child: Image.network(
                   widget.image,
-                  height: 160.h,
+                  height: 150.h,
                   width: double.infinity,
                   fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(
+                    height: 150.h,
+                    color: Colors.grey.shade200,
+                    child: const Icon(Icons.image_not_supported),
+                  ),
                 ),
               ),
 
+              /// Favorite
               Positioned(
-                top: 10.h,
-                right: 10.w,
-                child: GestureDetector(
+                top: 8.h,
+                right: 8.w,
+                child: _iconButton(
+                  icon: isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: isFavorite ? Colors.red : AppColors.primary,
                   onTap: () {
                     setState(() {
                       isFavorite = !isFavorite;
                     });
                   },
-                  child: Container(
-                    padding: EdgeInsets.all(8.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 6),
-                      ],
-                    ),
-                    child: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: isFavorite ? Colors.red : AppColors.primary,
-                      size: 20.sp,
-                    ),
-                  ),
+                ),
+              ),
+
+              /// Cart
+              Positioned(
+                top: 8.h,
+                left: 8.w,
+                child: _iconButton(
+                  icon: Icons.shopping_cart_outlined,
+                  color: AppColors.primary,
+                  onTap: () {},
                 ),
               ),
             ],
           ),
 
           Padding(
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.all(10.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -104,33 +108,29 @@ class _ProductCardState extends State<ProductCard> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
-                SizedBox(height: 12.h),
-
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 8.h),
-                    ),
-                    child: Text(
-                      "Add to Cart",
-                      style: AppTextStyles.button.copyWith(
-                        fontSize: 12.sp,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _iconButton({
+    required IconData icon,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(6.w),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
+        ),
+        child: Icon(icon, size: 18.sp, color: color),
       ),
     );
   }
