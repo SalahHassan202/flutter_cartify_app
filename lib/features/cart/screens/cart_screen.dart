@@ -37,11 +37,7 @@ class CartScreen extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 220.h),
                 itemCount: items.length,
                 itemBuilder: (context, index) {
-                  return CartItemCard(
-                    product: items[index],
-                    onRemove: () =>
-                        context.read<CartCubit>().removeFromCart(items[index]),
-                  );
+                  return CartItemCard(product: items[index]);
                 },
               ),
               if (total > 0)
