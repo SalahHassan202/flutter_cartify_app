@@ -30,6 +30,7 @@ class _ProductCardState extends State<ProductCard> {
         borderRadius: BorderRadius.circular(18.r),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.04),
             blurRadius: 15,
             offset: const Offset(0, 6),
