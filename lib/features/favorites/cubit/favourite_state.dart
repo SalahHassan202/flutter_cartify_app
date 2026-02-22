@@ -1,10 +1,10 @@
-part of 'favourite_cubit.dart';
+import '../../home/models/product_model.dart';
 
-sealed class FavouriteState extends Equatable {
-  const FavouriteState();
+abstract class FavoritesState {}
 
-  @override
-  List<Object> get props => [];
+class FavoritesInitial extends FavoritesState {}
+
+class FavoritesUpdated extends FavoritesState {
+  final List<ProductModel> favorites;
+  FavoritesUpdated(this.favorites);
 }
-
-final class FavouriteInitial extends FavouriteState {}

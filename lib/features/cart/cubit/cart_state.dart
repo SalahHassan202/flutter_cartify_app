@@ -1,10 +1,11 @@
-part of 'cart_cubit.dart';
+import '../../home/models/product_model.dart';
 
-sealed class CartState extends Equatable {
-  const CartState();
+abstract class CartState {}
 
-  @override
-  List<Object> get props => [];
+class CartInitial extends CartState {}
+
+class CartUpdated extends CartState {
+  final List<ProductModel> cartItems;
+  final double totalPrice;
+  CartUpdated(this.cartItems, this.totalPrice);
 }
-
-final class CartInitial extends CartState {}
