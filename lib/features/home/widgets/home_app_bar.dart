@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
-import '../cubit/home_cubit.dart';
+import '../../../core/constants/app_text_styles.dart';
 
-class HomeSearchBar extends StatelessWidget {
-  const HomeSearchBar({super.key});
+class HomeAppBar extends StatelessWidget {
+  const HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30.r),
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 12)],
-      ),
-      child: TextField(
-        onChanged: (value) {
-          context.read<HomeCubit>().searchProducts(value);
-        },
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-          hintText: "Search products...",
-          icon: Icon(Icons.search, color: AppColors.primary),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Good Evening ", style: AppTextStyles.body),
+            SizedBox(height: 4.h),
+            Text("Salah", style: AppTextStyles.heading1),
+          ],
         ),
-      ),
+        Container(
+          padding: EdgeInsets.all(10.w),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14.r),
+            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 10)],
+          ),
+          child: const Icon(Icons.notifications_none, color: AppColors.primary),
+        ),
+      ],
     );
   }
 }
