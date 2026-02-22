@@ -1,8 +1,12 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+abstract class AuthState {}
 
-part 'auth_state.dart';
+class AuthInitial extends AuthState {}
 
-class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+class AuthLoading extends AuthState {}
+
+class AuthSuccess extends AuthState {}
+
+class AuthFailure extends AuthState {
+  final String message;
+  AuthFailure(this.message);
 }

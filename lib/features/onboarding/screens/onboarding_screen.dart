@@ -5,6 +5,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../auth/screens/login_screen.dart';
 import '../models/onboarding_model.dart';
 import '../widgets/onboarding_page.dart';
 
@@ -46,7 +47,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            /// 🔹 Skip Button (Top Right)
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
               child: Row(
@@ -72,7 +72,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
 
-            /// 🔹 Pages
             Expanded(
               child: PageView.builder(
                 controller: _controller,
@@ -88,7 +87,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
 
-            /// 🔹 Indicator
             SmoothPageIndicator(
               controller: _controller,
               count: pages.length,
@@ -101,7 +99,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             SizedBox(height: 30.h),
 
-            /// 🔹 Next / Get Started Button
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: SizedBox(
@@ -109,6 +106,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (isLastPage) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => LoginScreen()),
+                      );
                     } else {
                       _controller.nextPage(
                         duration: const Duration(milliseconds: 500),
