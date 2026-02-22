@@ -14,7 +14,7 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: const BottomActionBar(),
+      bottomNavigationBar: BottomActionBar(product: product),
       body: CustomScrollView(
         slivers: [
           ProductImageAppBar(imageUrl: product.image),
