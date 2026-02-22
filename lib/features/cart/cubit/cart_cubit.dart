@@ -8,21 +8,34 @@ class CartCubit extends Cubit<CartState> {
   final List<ProductModel> _cartItems = [];
 
   List<ProductModel> get cartItems => _cartItems;
-
-  double get totalPrice => _cartItems.fold(0, (sum, item) => sum + item.price);
+  double get totalPrice =>
+      _cartItems.fold(0, (sum, item) => sum + (item.price * item.quantity));
 
   void addToCart(ProductModel product) {
-    _cartItems.add(product);
+    int index = _cartItems.indexWhere((item) => item.id == product.id);
+    if (index != -1) {
+      _cartItems[index].quantity++;
+    } else {
+      product.quantity = 1;
+      _cartItems.add(product);
+    }
+    emit(CartUpdated(List.from(_cartItems), totalPrice));
+  }
+
+  void removeOneFromCart(ProductModel product) {
+    int index = _cartItems.indexWhere((item) => item.id == product.id);
+    if (index != -1) {
+      if (_cartItems[index].quantity > 1) {
+        _cartItems[index].quantity--;
+      } else {
+        _cartItems.removeAt(index);
+      }
+    }
     emit(CartUpdated(List.from(_cartItems), totalPrice));
   }
 
   void removeFromCart(ProductModel product) {
     _cartItems.removeWhere((item) => item.id == product.id);
     emit(CartUpdated(List.from(_cartItems), totalPrice));
-  }
-
-  void clearCart() {
-    _cartItems.clear();
-    emit(CartUpdated(List.from(_cartItems), 0.0));
   }
 }
