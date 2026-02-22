@@ -13,7 +13,20 @@ class HomeApiService {
 
     final List data = response.data;
 
-    return data.map((json) {
+    final filteredProducts = data.where((json) {
+      if (json['images'] == null) return false;
+      if (json['images'] is! List) return false;
+      if ((json['images'] as List).isEmpty) return false;
+
+      final firstImage = json['images'][0];
+
+      if (firstImage == null) return false;
+      if (!firstImage.toString().startsWith('http')) return false;
+
+      return true;
+    }).toList();
+
+    return filteredProducts.map((json) {
       return ProductModel(
         id: json['id'],
         title: json['title'],
