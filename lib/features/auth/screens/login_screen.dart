@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
 
                     SizedBox(height: 30.h),
 
-                    Text("Welcome Back 👋", style: AppTextStyles.heading1),
+                    Text("Welcome Back!", style: AppTextStyles.heading1),
 
                     SizedBox(height: 8.h),
 
