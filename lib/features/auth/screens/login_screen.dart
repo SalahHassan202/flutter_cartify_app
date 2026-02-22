@@ -1,3 +1,4 @@
+import 'package:cartify_app/features/main_layout/screens/main_layout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +8,6 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_spacing.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/utils/validators.dart';
-import '../../home/screens/home_screen.dart';
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
 import '../widgets/auth_text_field.dart';
@@ -36,7 +36,9 @@ class LoginScreen extends StatelessWidget {
                   if (state is AuthSuccess) {
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (_) => const HomeScreen()),
+                      MaterialPageRoute(
+                        builder: (_) => const MainLayoutScreen(),
+                      ),
                       (route) => false,
                     );
                   } else if (state is AuthFailure) {
