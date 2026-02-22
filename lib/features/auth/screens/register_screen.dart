@@ -35,7 +35,7 @@ class RegisterScreen extends StatelessWidget {
                 listener: (context, state) {
                   if (state is AuthSuccess) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Account Created 🎉")),
+                      const SnackBar(content: Text("Account Created")),
                     );
                     Navigator.pop(context);
                   } else if (state is AuthFailure) {
@@ -49,7 +49,6 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     SizedBox(height: 40.h),
 
-                    /// 🔥 Register Image
                     Center(
                       child: Image.asset(
                         AppAssets.registerImage,
@@ -59,7 +58,7 @@ class RegisterScreen extends StatelessWidget {
 
                     SizedBox(height: 30.h),
 
-                    Text("Create Account 🚀", style: AppTextStyles.heading1),
+                    Text("Create Account", style: AppTextStyles.heading1),
 
                     SizedBox(height: 8.h),
 
