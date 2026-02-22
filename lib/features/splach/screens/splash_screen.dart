@@ -87,7 +87,6 @@ class _SplashScreenState extends State<SplashScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    /// 🛒 Logo + Wheel
                     Stack(
                       alignment: Alignment.center,
                       children: [
@@ -103,7 +102,7 @@ class _SplashScreenState extends State<SplashScreen>
                               height: 14.w,
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: AppColors.accent,
+                                color: AppColors.primary,
                               ),
                             ),
                           ),
@@ -113,7 +112,6 @@ class _SplashScreenState extends State<SplashScreen>
 
                     SizedBox(height: 28.h),
 
-                    /// App Name
                     Text(
                       "Cartify",
                       style: AppTextStyles.heading1.copyWith(
@@ -124,7 +122,6 @@ class _SplashScreenState extends State<SplashScreen>
 
                     SizedBox(height: 8.h),
 
-                    /// Tagline
                     Text(
                       "Shop Smart. Live Better.",
                       style: AppTextStyles.caption.copyWith(fontSize: 14.sp),
