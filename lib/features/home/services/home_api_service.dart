@@ -7,10 +7,19 @@ class HomeApiService {
   HomeApiService(this.dio);
 
   Future<List<ProductModel>> getProducts() async {
-    final response = await dio.get("https://fakestoreapi.com/products");
+    final response = await dio.get("https://dummyjson.com/products");
 
-    final List data = response.data;
+    final List data = response.data['products'];
 
-    return data.map((json) => ProductModel.fromJson(json)).toList();
+    return data.map((json) {
+      return ProductModel(
+        id: json['id'],
+        title: json['title'],
+        price: (json['price'] as num).toDouble(),
+        image: json['thumbnail'],
+        description: json['description'],
+        category: json['category'],
+      );
+    }).toList();
   }
 }
