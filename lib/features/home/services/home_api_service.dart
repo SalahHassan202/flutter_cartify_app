@@ -13,25 +13,29 @@ class HomeApiService {
 
     final List data = response.data;
 
-    final filteredProducts = data.where((json) {
-      if (json['images'] == null) return false;
-      if (json['images'] is! List) return false;
-      if ((json['images'] as List).isEmpty) return false;
-
-      final firstImage = json['images'][0];
-
-      if (firstImage == null) return false;
-      if (!firstImage.toString().startsWith('http')) return false;
-
+    final filteredData = data.where((json) {
+      if (json['images'] == null ||
+          json['images'] is! List ||
+          (json['images'] as List).isEmpty) {
+        return false;
+      }
+      final String firstImage = json['images'][0].toString();
+      if (firstImage.isEmpty || !firstImage.startsWith('http')) {
+        return false;
+      }
       return true;
     }).toList();
 
-    return filteredProducts.map((json) {
+    return filteredData.map((json) {
+      String cleanImage = json['images'][0].toString().replaceAll(
+        RegExp(r'[\[\]"]'),
+        '',
+      );
       return ProductModel(
         id: json['id'],
         title: json['title'],
         price: (json['price'] as num).toDouble(),
-        image: json['images'][0],
+        image: cleanImage,
         description: json['description'],
         category: json['category']['name'],
       );
