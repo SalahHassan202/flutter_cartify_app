@@ -7,6 +7,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_spacing.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/utils/validators.dart';
+import '../../home/screens/home_screen.dart';
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
 import '../widgets/auth_text_field.dart';
@@ -33,8 +34,10 @@ class LoginScreen extends StatelessWidget {
               child: BlocListener<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthSuccess) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Login Successful")),
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => const HomeScreen()),
+                      (route) => false,
                     );
                   } else if (state is AuthFailure) {
                     ScaffoldMessenger.of(
@@ -53,7 +56,7 @@ class LoginScreen extends StatelessWidget {
 
                     SizedBox(height: 30.h),
 
-                    Text("Welcome Back", style: AppTextStyles.heading1),
+                    Text("Welcome Back 👋", style: AppTextStyles.heading1),
 
                     SizedBox(height: 8.h),
 
@@ -71,7 +74,6 @@ class LoginScreen extends StatelessWidget {
                           AuthTextField(
                             controller: emailController,
                             label: "Email",
-                            keyboardType: TextInputType.emailAddress,
                             validator: Validators.validateEmail,
                           ),
 
