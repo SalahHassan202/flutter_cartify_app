@@ -1,12 +1,11 @@
+import 'package:cartify_app/features/cart/cubit/cart_cubit.dart';
+import 'package:cartify_app/features/favorites/cubit/favourite_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'core/themes/app_theme.dart';
 import 'core/themes/theme_cubit.dart';
 import 'features/home/cubit/home_cubit.dart';
-import 'features/favorites/logic/favorites_cubit.dart';
-import 'features/cart/logic/cart_cubit.dart';
 import 'features/splach/screens/splash_screen.dart';
 
 void main() {
