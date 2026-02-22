@@ -30,7 +30,6 @@ class _ProductCardState extends State<ProductCard> {
         borderRadius: BorderRadius.circular(18.r),
         boxShadow: [
           BoxShadow(
-            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.04),
             blurRadius: 15,
             offset: const Offset(0, 6),
@@ -49,9 +48,15 @@ class _ProductCardState extends State<ProductCard> {
                   height: 150.h,
                   width: double.infinity,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: 150.h,
+                      color: Colors.grey[200],
+                      child: const Icon(Icons.broken_image, color: Colors.grey),
+                    );
+                  },
                 ),
               ),
-
               Positioned(
                 top: 8.h,
                 right: 8.w,
@@ -65,7 +70,6 @@ class _ProductCardState extends State<ProductCard> {
                   },
                 ),
               ),
-
               Positioned(
                 top: 8.h,
                 left: 8.w,
@@ -77,13 +81,11 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ],
           ),
-
           Padding(
             padding: EdgeInsets.all(10.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// Title
                 Text(
                   widget.title,
                   maxLines: 1,
@@ -92,9 +94,7 @@ class _ProductCardState extends State<ProductCard> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-
                 SizedBox(height: 6.h),
-
                 Text(
                   widget.price,
                   style: AppTextStyles.body.copyWith(
@@ -119,10 +119,10 @@ class _ProductCardState extends State<ProductCard> {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(6.w),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           shape: BoxShape.circle,
-          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
+          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
         ),
         child: Icon(icon, size: 18.sp, color: color),
       ),
