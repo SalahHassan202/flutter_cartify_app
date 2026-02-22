@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../models/product_model.dart';
 import 'product_card.dart';
 
 class ProductGrid extends StatelessWidget {
-  const ProductGrid({super.key});
+  final List<ProductModel> products;
+
+  const ProductGrid({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
-    final products = [
-      {
-        "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-        "title": "Backpack",
-        "price": "\$109",
-      },
-      {
-        "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
-        "title": "T-Shirt",
-        "price": "\$29",
-      },
-    ];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -42,10 +33,11 @@ class ProductGrid extends StatelessWidget {
           ),
           itemBuilder: (_, index) {
             final product = products[index];
+
             return ProductCard(
-              image: product["image"]!,
-              title: product["title"]!,
-              price: product["price"]!,
+              image: product.image,
+              title: product.title,
+              price: "\$${product.price}",
             );
           },
         ),
