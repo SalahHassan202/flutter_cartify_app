@@ -30,6 +30,7 @@ class _ProductCardState extends State<ProductCard> {
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.05),
             blurRadius: 15,
             offset: const Offset(0, 6),
@@ -39,7 +40,6 @@ class _ProductCardState extends State<ProductCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// 🔥 IMAGE + FAVORITE
           Stack(
             children: [
               ClipRRect(
@@ -81,13 +81,11 @@ class _ProductCardState extends State<ProductCard> {
             ],
           ),
 
-          /// 🔥 CONTENT
           Padding(
             padding: EdgeInsets.all(12.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// TITLE
                 Text(
                   widget.title,
                   maxLines: 1,
@@ -99,7 +97,6 @@ class _ProductCardState extends State<ProductCard> {
 
                 SizedBox(height: 6.h),
 
-                /// PRICE
                 Text(
                   widget.price,
                   style: AppTextStyles.body.copyWith(
@@ -110,13 +107,10 @@ class _ProductCardState extends State<ProductCard> {
 
                 SizedBox(height: 12.h),
 
-                /// ADD TO CART BUTTON
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // هنربطه بالكارت بعدين
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(
