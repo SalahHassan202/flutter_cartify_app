@@ -20,17 +20,10 @@ class CartScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
-        builder: (context, state) {
-          final total = context.read<CartCubit>().totalPrice;
-          return total > 0
-              ? CartSummarySection(total: total)
-              : const SizedBox();
-        },
-      ),
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           final items = context.read<CartCubit>().cartItems;
+          final total = context.read<CartCubit>().totalPrice;
 
           if (items.isEmpty) {
             return Center(
@@ -38,16 +31,27 @@ class CartScreen extends StatelessWidget {
             );
           }
 
-          return ListView.builder(
-            padding: EdgeInsets.all(20.w),
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return CartItemCard(
-                product: items[index],
-                onRemove: () =>
-                    context.read<CartCubit>().removeFromCart(items[index]),
-              );
-            },
+          return Stack(
+            children: [
+              ListView.builder(
+                padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 220.h),
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  return CartItemCard(
+                    product: items[index],
+                    onRemove: () =>
+                        context.read<CartCubit>().removeFromCart(items[index]),
+                  );
+                },
+              ),
+              if (total > 0)
+                Positioned(
+                  bottom: 100.h,
+                  left: 0,
+                  right: 0,
+                  child: CartSummarySection(total: total),
+                ),
+            ],
           );
         },
       ),
