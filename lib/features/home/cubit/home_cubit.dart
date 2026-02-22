@@ -15,7 +15,6 @@ class HomeCubit extends Cubit<HomeState> {
       final products = await api.getProducts();
       emit(HomeSuccess(products));
     } catch (e) {
-      print(e.toString());
       emit(HomeError(e.toString()));
     }
   }
