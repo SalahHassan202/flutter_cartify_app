@@ -1,9 +1,15 @@
+import 'package:cartify_app/features/cart/cubit/cart_cubit.dart';
+import 'package:cartify_app/features/favorites/cubit/favourite_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../home/models/product_model.dart';
 
 class BottomActionBar extends StatelessWidget {
-  const BottomActionBar({super.key});
+  final ProductModel product;
+
+  const BottomActionBar({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +27,36 @@ class BottomActionBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            height: 56.h,
-            width: 56.w,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16.r),
-              border: Border.all(color: Colors.grey.shade200),
+          GestureDetector(
+            onTap: () {
+              context.read<FavoritesCubit>().toggleFavorite(product);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Updated Favorites"),
+                  duration: Duration(seconds: 1),
+                ),
+              );
+            },
+            child: Container(
+              height: 56.h,
+              width: 56.w,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16.r),
+                border: Border.all(color: Colors.grey.shade200),
+              ),
+              child: BlocBuilder<FavoritesCubit, dynamic>(
+                builder: (context, state) {
+                  final isFav = context.read<FavoritesCubit>().isFavorite(
+                    product.id,
+                  );
+                  return Icon(
+                    isFav ? Icons.favorite : Icons.favorite_border,
+                    color: isFav ? Colors.red : AppColors.primary,
+                  );
+                },
+              ),
             ),
-            child: const Icon(Icons.favorite_border, color: AppColors.primary),
           ),
           SizedBox(width: 16.w),
           Expanded(
@@ -41,7 +68,15 @@ class BottomActionBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16.r),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                context.read<CartCubit>().addToCart(product);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Added to Cart"),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+              },
               child: Text(
                 "Add to Cart",
                 style: TextStyle(
