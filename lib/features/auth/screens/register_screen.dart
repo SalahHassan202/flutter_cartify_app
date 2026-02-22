@@ -61,7 +61,7 @@ class RegisterScreen extends StatelessWidget {
 
                     SizedBox(height: 30.h),
 
-                    Text("Create Account 🚀", style: AppTextStyles.heading1),
+                    Text("Create Account", style: AppTextStyles.heading1),
 
                     SizedBox(height: 8.h),
 
