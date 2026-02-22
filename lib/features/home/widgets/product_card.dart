@@ -49,15 +49,9 @@ class _ProductCardState extends State<ProductCard> {
                   height: 150.h,
                   width: double.infinity,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Container(
-                    height: 150.h,
-                    color: Colors.grey.shade200,
-                    child: const Icon(Icons.image_not_supported),
-                  ),
                 ),
               ),
 
-              /// Favorite
               Positioned(
                 top: 8.h,
                 right: 8.w,
@@ -72,7 +66,6 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ),
 
-              /// Cart
               Positioned(
                 top: 8.h,
                 left: 8.w,
@@ -90,6 +83,7 @@ class _ProductCardState extends State<ProductCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /// Title
                 Text(
                   widget.title,
                   maxLines: 1,
