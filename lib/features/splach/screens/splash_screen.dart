@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen>
     _mainController.forward();
     _wheelController.repeat();
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously
         context,
