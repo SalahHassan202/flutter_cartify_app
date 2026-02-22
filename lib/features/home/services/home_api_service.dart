@@ -7,18 +7,20 @@ class HomeApiService {
   HomeApiService(this.dio);
 
   Future<List<ProductModel>> getProducts() async {
-    final response = await dio.get("https://dummyjson.com/products");
+    final response = await dio.get(
+      "https://api.escuelajs.co/api/v1/products/?categoryId=1",
+    );
 
-    final List data = response.data['products'];
+    final List data = response.data;
 
     return data.map((json) {
       return ProductModel(
         id: json['id'],
         title: json['title'],
         price: (json['price'] as num).toDouble(),
-        image: json['thumbnail'],
+        image: json['images'][0],
         description: json['description'],
-        category: json['category'],
+        category: json['category']['name'],
       );
     }).toList();
   }
