@@ -7,10 +7,12 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_spacing.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/utils/validators.dart';
+import '../../home/screens/home_screen.dart';
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/auth_button.dart';
+import 'login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -34,10 +36,11 @@ class RegisterScreen extends StatelessWidget {
               child: BlocListener<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is AuthSuccess) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Account Created")),
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => const HomeScreen()),
+                      (route) => false,
                     );
-                    Navigator.pop(context);
                   } else if (state is AuthFailure) {
                     ScaffoldMessenger.of(
                       context,
@@ -58,7 +61,7 @@ class RegisterScreen extends StatelessWidget {
 
                     SizedBox(height: 30.h),
 
-                    Text("Create Account", style: AppTextStyles.heading1),
+                    Text("Create Account 🚀", style: AppTextStyles.heading1),
 
                     SizedBox(height: 8.h),
 
@@ -125,6 +128,32 @@ class RegisterScreen extends StatelessWidget {
                                 },
                               );
                             },
+                          ),
+
+                          SizedBox(height: 20.h),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Already have an account? "),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => LoginScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  "Sign In",
+                                  style: TextStyle(
+                                    color: AppColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
