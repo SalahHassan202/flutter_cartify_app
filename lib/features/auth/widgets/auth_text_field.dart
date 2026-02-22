@@ -30,27 +30,12 @@ class AuthTextField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText,
       maxLength: maxLength,
-      buildCounter:
-          (context, {required currentLength, required isFocused, maxLength}) {
-            if (maxLength == null) return const SizedBox();
-            return Padding(
-              padding: EdgeInsets.only(top: 4.h),
-              child: Text(
-                "$currentLength/$maxLength",
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: isFocused
-                      ? AppColors.primary
-                      : AppColors.textSecondary,
-                ),
-              ),
-            );
-          },
       decoration: InputDecoration(
         labelText: label,
+        counterText: "",
         contentPadding: EdgeInsets.symmetric(
           horizontal: AppSpacing.s16.w,
-          vertical: AppSpacing.s16.h,
+          vertical: AppSpacing.s12.h,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppRadius.r12),
