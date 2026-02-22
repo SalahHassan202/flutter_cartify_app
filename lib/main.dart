@@ -1,9 +1,13 @@
-import 'package:cartify_app/core/themes/app_theme.dart';
-import 'package:cartify_app/core/themes/theme_cubit.dart';
-import 'package:cartify_app/features/splach/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'core/themes/app_theme.dart';
+import 'core/themes/theme_cubit.dart';
+import 'features/home/cubit/home_cubit.dart';
+import 'features/favorites/logic/favorites_cubit.dart';
+import 'features/cart/logic/cart_cubit.dart';
+import 'features/splach/screens/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +19,13 @@ class CartifyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ThemeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => HomeCubit()..fetchProducts()),
+        BlocProvider(create: (_) => FavoritesCubit()),
+        BlocProvider(create: (_) => CartCubit()),
+      ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
