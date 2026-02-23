@@ -7,38 +7,35 @@ class HomeApiService {
   HomeApiService(this.dio);
 
   Future<List<ProductModel>> getProducts() async {
-    final response = await dio.get(
-      "https://api.escuelajs.co/api/v1/products/?categoryId=1",
-    );
-
-    final List data = response.data;
-
-    final filteredData = data.where((json) {
-      if (json['images'] == null ||
-          json['images'] is! List ||
-          (json['images'] as List).isEmpty) {
-        return false;
-      }
-      final String firstImage = json['images'][0].toString();
-      if (firstImage.isEmpty || !firstImage.startsWith('http')) {
-        return false;
-      }
-      return true;
-    }).toList();
-
-    return filteredData.map((json) {
-      String cleanImage = json['images'][0].toString().replaceAll(
-        RegExp(r'[\[\]"]'),
-        '',
+    try {
+      final response = await dio.get(
+        "https://dummyjson.com/products?limit=194",
       );
-      return ProductModel(
-        id: json['id'],
-        title: json['title'],
-        price: (json['price'] as num).toDouble(),
-        image: cleanImage,
-        description: json['description'],
-        category: json['category']['name'],
-      );
-    }).toList();
+      final List data = response.data['products'];
+
+      final clothingData = data.where((item) {
+        final category = item['category'].toString().toLowerCase();
+        return category.contains('clothing') ||
+            category.contains('shirts') ||
+            category.contains('tops') ||
+            category.contains('womens-dresses') ||
+            category.contains('mens-shirts') ||
+            category.contains('mens-shoes') ||
+            category.contains('womens-shoes');
+      }).toList();
+
+      return clothingData.map((json) {
+        return ProductModel(
+          id: json['id'],
+          title: json['title'],
+          price: (json['price'] as num).toDouble(),
+          image: json['thumbnail'],
+          description: json['description'],
+          category: json['category'],
+        );
+      }).toList();
+    } catch (e) {
+      return [];
+    }
   }
 }
